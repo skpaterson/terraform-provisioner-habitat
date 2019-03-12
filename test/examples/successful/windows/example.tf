@@ -33,7 +33,7 @@ resource "aws_instance" "ms-hab-win-vm" {
     service {
       name = "mwrock/hab-sln"
       topology = "standalone"
-      user_toml = "${file("conf/user.toml")}"
+      user_toml = ""
     }
 
     service {
@@ -54,11 +54,4 @@ output "ips" {
   value = ["${aws_instance.ms-hab-win-vm.public_ip}"]
 }
 
-output "username" {
-  value = "${var.win_username}"
-}
-
-output "password" {
-  value = "${var.win_password}"
-}
 

@@ -80,6 +80,7 @@ func (p *provisioner) winStartHab(o terraform.UIOutput, comm communicator.Commun
 	if p.Organization != "" {
 		options += fmt.Sprintf(" --org %s", p.Organization)
 	}
+	options += fmt.Sprintf(" --no-color", p.Organization)
 
 	p.SupOptions = options
 	content += fmt.Sprintf("$svcPath = Join-Path $env:SystemDrive \"hab\\svc\\windows-service\"\n")
