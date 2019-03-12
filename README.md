@@ -5,7 +5,7 @@ A [Terraform](https://terraform.io) provisioner to install and configure [Habita
 This is a development repository for adding features to the [provisioner](https://github.com/hashicorp/terraform/tree/master/builtin/provisioners/habitat). Primary goal at the moment is to add support for installation and configuration of Habitat on Windows.
 
 ## Build from source
-Provisioner is written in Go language and uses packages from main Hashicorp Terraform [repository](). Recommended to have Terraform repository on your local at `~/go/src/github.com/hashicorp/terraform`. 
+Provisioner is written in Go language and uses packages from main Hashicorp Terraform [repository](https://github.com/hashicorp/terraform). Recommended to have Terraform repository on your local at `~/go/src/github.com/hashicorp/terraform`. 
 After successful build, copy the binary to ~/.terraform.d/plugins/ and make it is executable before use. 
 
 ```
