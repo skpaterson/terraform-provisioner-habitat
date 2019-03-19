@@ -94,7 +94,7 @@ output "App-Server-IP" {
   value = ["${aws_instance.ms-hab-appserver.public_ip}"]
 }
 output "SQL-Server-IP" {
-  value = ["${aws_instance.ms-hab-sqlserver2.public_ip}"]
+  value = ["${aws_instance.ms-hab-sqlserver.public_ip}"]
 }
 
 
