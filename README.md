@@ -1,13 +1,14 @@
 
 # Terraform Provisioner for Habitat
-A [Terraform](https://terraform.io) to install and configure [Habitat](https://habitat.sh)
+A [Terraform](https://terraform.io) provisioner to install and configure [Habitat](https://habitat.sh)
 
-This is a development repository for adding features to the [provisioner](https://github.com/hashicorp/terraform/tree/master/builtin/provisioners/habitat). Primary goal at the moment is to add support for installationa and configuration of Habitat on Windows.
+This is a development repository for adding features to the [provisioner](https://github.com/hashicorp/terraform/tree/master/builtin/provisioners/habitat). Primary goal at the moment is to add support for installation and configuration of Habitat on Windows.
 
 ## Build from source
-Provisioner is written in Go language and uses packages from main Hashicorp Terraform [repository](). Copy the binary to ~/.terraform.d/plugins/ and make sure it is executable. 
+Provisioner is written in Go language and uses packages from main Hashicorp Terraform [repository](https://github.com/hashicorp/terraform). Recommended to have Terraform repository on your local at `~/go/src/github.com/hashicorp/terraform`. 
+After successful build, copy the binary to ~/.terraform.d/plugins/ and make it is executable before use. 
 
-```bash
+```
 git clone https://github.com/chef-partners/terraform-provisioner-habitat.git
 cd terraform-provisioner-habitat
 go build -o terraform-provisioner-habitat_dev
@@ -20,7 +21,9 @@ chmod +x ~/.terraform.d/plugins/terraform-provisioner-habitat_dev
 
 
 ## Usage
-The following example shows how to install SQL Server Habitat service
+The following example shows how to install SQL Server Habitat service on a Windows machine
+
+```
 provisioner "habitat_dev" {
     peer = ""
     
@@ -36,9 +39,11 @@ provisioner "habitat_dev" {
       password = "${var.win_password}"
     }
 }
+```
 
 To attach this SQL server with an application as Habitat peer and establish service binding, the following can be used in the application server's provisioning
 
+```
 provisioner "habitat_dev" {
     peer = "${aws_instance.ms-hab-sqlserver.private_ip}"
     
@@ -57,6 +62,7 @@ provisioner "habitat_dev" {
       password = "${var.win_password}"
     }
   }
+ ```
 
 ## Arguments
 There are 2 configuration levels, supervisor and service.  Values placed directly within the `provisioner` block are supervisor configs, and values placed inside a `service` block are service configs.  Services can also take a `bind` block to configure runtime bindings.
