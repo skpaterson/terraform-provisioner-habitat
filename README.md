@@ -41,7 +41,7 @@ Now copy the binary to the Terraform's plugins folder, if is your first plugin m
 > mv terraform-provisioner-habitat_dev*/terraform-provisioner-habitat_dev* ~/.terraform.d/plugins/
 ```
 
-### Installation from binaries (recommended)
+### Build from source
 
 If you wish to compile the provisioner from source code, you'll first need [Go](http://www.golang.org) installed on your machine (version >=1.11.4 is *required*). You'll also need to correctly setup a [GOPATH](http://golang.org/doc/code.html#GOPATH), as well as adding `$GOPATH/bin` to your `$PATH`. In addition you will need to install required Terraform packages on your machine from Hashicorp Terraform [repository](https://github.com/hashicorp/terraform).
 
