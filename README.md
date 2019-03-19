@@ -4,11 +4,51 @@ A [Terraform](https://terraform.io) provisioner to install and configure [Habita
 
 This is a development repository for adding features to the [provisioner](https://github.com/hashicorp/terraform/tree/master/builtin/provisioners/habitat). Primary goal at the moment is to add support for installation and configuration of Habitat on Windows.
 
-## Build from source
-Provisioner is written in Go language and uses packages from main Hashicorp Terraform [repository](https://github.com/hashicorp/terraform). Recommended to have Terraform repository on your local at `~/go/src/github.com/hashicorp/terraform`. 
-After successful build, copy the binary to ~/.terraform.d/plugins/ and make it is executable before use. 
+Contents
+--------
+
+* [Installation](#installation)
+* [Example](#example)
+* [Documentation](#documentation)
+
+
+Installation
+------------
+
+### Requirements
+
+This Habitat provisioner is based on [Terraform](https://www.terraform.io), this means that you need
+
+
+- [Terraform](https://www.terraform.io/downloads.html) >=0.11.11
+- You must have winrm access to Windows machine with admin rights for installation
+
+### Installation from binaries (recommended)
+
+The recommended way to install Habitat provisioner is to use the binary distributions from the [Releases](https://github.com/chef-partners/terraform-provisioner-habitat/releases) page. The packages are available for macOS, Windows and Linux.
+
+Download and uncompress the latest release for your OS. This example uses the macOS binary.
+
+```sh
+> wget https://github.com/chef-partners/terraform-provisioner-habitat/releases/download/0.1/terraform-provisioner-habitat_dev_v0.1_darwin_amd64.tar.gz
+> tar -xvf terraform-provisioner-habitat_dev*.tar.gz
+```
+
+Now copy the binary to the Terraform's plugins folder, if is your first plugin maybe isn't present.
+
+```sh
+> mkdir -p ~/.terraform.d/plugins/
+> mv terraform-provisioner-habitat_dev*/terraform-provisioner-habitat_dev* ~/.terraform.d/plugins/
+```
+
+### Installation from binaries (recommended)
+
+If you wish to compile the provisioner from source code, you'll first need [Go](http://www.golang.org) installed on your machine (version >=1.11.4 is *required*). You'll also need to correctly setup a [GOPATH](http://golang.org/doc/code.html#GOPATH), as well as adding `$GOPATH/bin` to your `$PATH`. In addition you will need to install required Terraform packages on your machine from Hashicorp Terraform [repository](https://github.com/hashicorp/terraform).
+
+Clone Provisioner repository to: `$GOPATH/src/github.com/chef-partners/terraform-provisioner-habitat`
 
 ```
+cd $GOPATH/src/github.com/chef-partners/
 git clone https://github.com/chef-partners/terraform-provisioner-habitat.git
 cd terraform-provisioner-habitat
 go build -o terraform-provisioner-habitat_dev
@@ -16,11 +56,9 @@ mv ./terraform-provisioner-habitat_dev ~/.terraform.d/plugins/terraform-provisio
 chmod +x ~/.terraform.d/plugins/terraform-provisioner-habitat_dev
 ```
 
-## Requirements
-* You must have winrm access to Windows machine with admin rights for installation
 
-
-## Usage
+Example
+--------
 The following example shows how to install SQL Server Habitat service on a Windows machine
 
 ```
@@ -64,6 +102,8 @@ provisioner "habitat_dev" {
   }
  ```
 
+Documentation
+--------
 ## Arguments
 There are 2 configuration levels, supervisor and service.  Values placed directly within the `provisioner` block are supervisor configs, and values placed inside a `service` block are service configs.  Services can also take a `bind` block to configure runtime bindings.
 
