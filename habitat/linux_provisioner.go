@@ -60,6 +60,17 @@ func (p *provisioner) linuxInstallHab(o terraform.UIOutput, comm communicator.Co
 		return err
 	}
 
+	// Accept the license
+	if p.AcceptLicense {
+		command = fmt.Sprintf("export HAB_LICENSE=accept; hab -V")
+		if p.UseSudo {
+			command = fmt.Sprintf("sudo HAB_LICENSE=accept hab -V")
+		}
+		if err := p.runCommand(o, comm, command); err != nil {
+			return err
+		}
+	}
+
 	if err := p.createHabUser(o, comm); err != nil {
 		return err
 	}

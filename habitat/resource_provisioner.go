@@ -8,6 +8,7 @@ import (
 	"net/url"
 	"strings"
 
+	version "github.com/hashicorp/go-version"
 	"github.com/hashicorp/terraform/communicator"
 	"github.com/hashicorp/terraform/communicator/remote"
 	"github.com/hashicorp/terraform/helper/schema"
@@ -34,6 +35,7 @@ type provisioner struct {
 	RingKeyContent   string
 	SkipInstall      bool
 	UseSudo          bool
+	AcceptLicense    bool
 	ServiceType      string
 	ServiceName      string
 	URL              string
@@ -79,6 +81,10 @@ func Provisioner() *schema.Provisioner {
 			"version": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
+			},
+			"accept_license": &schema.Schema{
+				Type:     schema.TypeBool,
+				Required: true,
 			},
 			"peer": &schema.Schema{
 				Type:     schema.TypeString,
@@ -330,6 +336,26 @@ func validateFn(c *terraform.ResourceConfig) (ws []string, es []error) {
 		}
 	}
 
+	v, ok := c.Get("version")
+	if ok && v != nil && strings.TrimSpace(v.(string)) != "" {
+		if _, err := version.NewVersion(v.(string)); err != nil {
+			es = append(es, errors.New(v.(string)+" is not a valid version."))
+		}
+	}
+
+	acceptLicense, ok := c.Get("accept_license")
+	if ok && !acceptLicense.(bool) {
+		if v != nil && strings.TrimSpace(v.(string)) != "" {
+			versionOld, _ := version.NewVersion("0.79.0")
+			versionRequired, _ := version.NewVersion(v.(string))
+			if versionRequired.GreaterThan(versionOld) {
+				es = append(es, errors.New("Habitat end user license agreement needs to be accepted, set the accept_license argument to true to accept"))
+			}
+		} else { // blank means latest version
+			es = append(es, errors.New("Habitat end user license agreement needs to be accepted, set the accept_license argument to true to accept"))
+		}
+	}
+
 	// Validate service level configs
 	services, ok := c.Get("service")
 	if ok {
@@ -387,6 +413,7 @@ func decodeConfig(d *schema.ResourceData) (*provisioner, error) {
 		Peer:             d.Get("peer").(string),
 		Services:         getServices(d.Get("service").(*schema.Set).List()),
 		UseSudo:          d.Get("use_sudo").(bool),
+		AcceptLicense:    d.Get("accept_license").(bool),
 		ServiceType:      d.Get("service_type").(string),
 		ServiceName:      d.Get("service_name").(string),
 		RingKey:          d.Get("ring_key").(string),
