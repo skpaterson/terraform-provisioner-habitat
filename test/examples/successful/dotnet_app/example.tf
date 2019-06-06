@@ -75,7 +75,7 @@ resource "aws_instance" "ms-hab-appserver" {
     service {
       name = "mwrock/contosouniversity"
       topology = "standalone"
-      
+      user_toml = "${file("conf/user.toml")}"
       binds = [
         "database:sqlserver.default"
       ]

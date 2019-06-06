@@ -3,7 +3,7 @@ package main
 import (
 	"github.com/hashicorp/terraform/plugin"
 	"github.com/hashicorp/terraform/terraform"
-	"github.com/mudash/terraform-provisioner-habitat/habitat"
+	"github.com/chef-partners/terraform-provisioner-habitat/habitat"
 )
 
 func main() {
