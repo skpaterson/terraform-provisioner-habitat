@@ -19,8 +19,8 @@ spec:
     stage('Build Information') {
         steps {
             container('habprov') {
-                sh 'pwd'
                 sh 'ls -al'
+                sh 'pwd'
                 sh 'echo $PATH'
                 sh 'git --version'
                 sh 'go version'
