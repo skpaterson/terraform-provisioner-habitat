@@ -9,7 +9,7 @@ kind: Pod
 spec:
   containers:
   - name: habprov
-    image: gcr.io/spaterson-project/jenkins-habprov:latest:latest
+    image: gcr.io/spaterson-project/jenkins-habprov:latest
     command: ['cat']
     tty: true
 """
