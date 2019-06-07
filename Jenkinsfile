@@ -12,6 +12,7 @@ spec:
     image: gcr.io/spaterson-project/jenkins-habprov:latest
     command: ['cat']
     tty: true
+    alwaysPullImage: true
 """
     }
   }
