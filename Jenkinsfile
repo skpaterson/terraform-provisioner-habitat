@@ -24,9 +24,10 @@ spec:
             container('habprov') {
                 sh 'pwd'
                 sh 'ls -al'
-                sh 'echo PATH is: $PATH'
+                sh 'echo PATH = $PATH'
                 sh 'git --version'
                 sh 'chmod +x ./build.sh'
+                sh 'chmod +x ./test.sh'
                 dir ('/home/jenkins/workspace/TF-Hab-Provisioner_master') { 
                   sh('bash build.sh')
                 }  
@@ -36,10 +37,9 @@ spec:
     stage('Test TF Habitat Provisioner') {
         steps {
             container('habprov') {
-                sh 'echo PATH is: $PATH'
-                sh 'bash echo PATH is: $PATH'
-                sh 'bash go version'
-                sh 'bash terraform --version'
+                dir ('/home/jenkins/workspace/TF-Hab-Provisioner_master') { 
+                  sh('bash test.sh')
+                }  
             }
         }
     }
@@ -47,7 +47,14 @@ spec:
   triggers {
     cron 'H 10 * * *'
   }
-  
+  post {
+    success {
+        slackSend color: 'good', message: "The pipeline ${currentBuild.fullDisplayName} completed successfully. <${env.BUILD_URL}|Details here>."
+    }
+    failure {
+        slackSend color: 'danger', message: "Pipeline failure ${currentBuild.fullDisplayName}. Please <${env.BUILD_URL}|resolve issues here>."
+    }
+  }
   options {
     buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '10')
   }
