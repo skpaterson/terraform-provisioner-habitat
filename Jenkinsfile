@@ -26,7 +26,7 @@ spec:
                 sh 'pwd'
                 sh 'echo $PATH'
                 sh 'git --version'
-                sh 'go version'
+                sh 'terraform --version'
             }
         }
     }
