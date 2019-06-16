@@ -41,11 +41,3 @@ then
 fi
 echo "Successfully built habitat provisoner"
 
-go test -v ./habitat -v
-if [ $? -ne 0 ];
-then
-    echo "Failure in habitat provisioner unit tests"
-    exit 1
-fi
-echo "Successfully ran the unit tests for habitat provisioner"
-
