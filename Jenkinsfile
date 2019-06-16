@@ -1,6 +1,6 @@
 def pod_label = "habprov-tf-${UUID.randomUUID().toString()}"
-def root = tool name: 'Go 1.9', type: 'go'
 pipeline {
+  def root = tool name: 'Go 1.9', type: 'go'
   agent {
     kubernetes {
       label pod_label
@@ -10,7 +10,7 @@ kind: Pod
 spec:
   containers:
   - name: habprov
-    image: gcr.io/spaterson-project/jenkins-ruby-tf-aws-inspec:build
+    image: gcr.io/spaterson-project/jenkins-habprov:latest
     command: ['cat']
     tty: true
     securityContext:
@@ -27,12 +27,8 @@ spec:
                 sh 'pwd'
                 sh 'echo $PATH'
                 sh 'git --version'
-                sh 'terraform --version'
-                // Install the desired Go version
-  
-                // Export environment variables pointing to the directory where Go was installed
-                withEnv(["GOROOT=${root}", "PATH+GO=${root}/bin"]) {
-                  sh 'go version'
+                sh 'python --version'
+                sh 'wget https://dl.google.com/go/go1.12.6.linux-amd64.tar.gz'
                 }
             }
         }
