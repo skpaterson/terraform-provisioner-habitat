@@ -27,7 +27,7 @@ spec:
                 sh 'echo PATH is: $PATH'
                 sh 'git --version'
                 sh 'chmod +x ./build.sh'
-                sh './build.sh'
+                sh 'bash build.sh'
                 }
             }
     }
