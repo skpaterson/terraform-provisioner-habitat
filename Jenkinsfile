@@ -19,6 +19,22 @@ spec:
     }
   }
   stages {
+    stage('Checking out InSpec AWS') {
+        steps {
+            sh 'mkdir inspec-aws && ls -al'
+            dir('inspec-aws') {
+                git([url: 'https://github.com/inspec/inspec-aws', branch: 'master', credentialsId: 'github-skp'])
+            }
+        }
+    }
+    stage('Ruby Bundle Install') {
+       steps {
+            container('habprov') {
+                sh 'bundle install'
+                sh 'bundle exec inspec --version'
+            }
+        }
+    }
     stage('Build Information') {
         steps {
             container('habprov') {
