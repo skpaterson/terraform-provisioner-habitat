@@ -9,7 +9,7 @@ kind: Pod
 spec:
   containers:
   - name: habprov
-    image: gcr.io/spaterson-project/jenkins-habprov:latest
+    image: gcr.io/spaterson-project/jenkins-ruby-tf-aws-inspec:build
     command: ['cat']
     tty: true
     securityContext:
@@ -19,30 +19,16 @@ spec:
     }
   }
   stages {
-    stage('Checking out InSpec AWS') {
-        steps {
-            sh 'mkdir inspec-aws && ls -al'
-            dir('inspec-aws') {
-                git([url: 'https://github.com/inspec/inspec-aws', branch: 'master', credentialsId: 'github-skp'])
-            }
-        }
-    }
-    stage('Ruby Bundle Install') {
-       steps {
-            container('habprov') {
-                sh 'bundle install'
-                sh 'bundle exec inspec --version'
-            }
-        }
-    }
     stage('Build Information') {
         steps {
             container('habprov') {
-                sh 'ls -al'
                 sh 'pwd'
-                sh 'echo $PATH'
+                sh 'ls -al'
+                sh 'echo PATH is: $PATH'
                 sh 'git --version'
                 sh 'wget https://dl.google.com/go/go1.12.6.linux-amd64.tar.gz'
+                sh 'tar -C /usr/local -xzf go1.12.6.linux-amd64.tar.gz'
+                sh 'export PATH=$PATH:/usr/local/go/bin'
                 }
             }
     }
