@@ -1,4 +1,4 @@
-def pod_label = "habprov-cmdb-${UUID.randomUUID().toString()}"
+def pod_label = "habprov-tf-${UUID.randomUUID().toString()}"
 pipeline {
   agent {
     kubernetes {
