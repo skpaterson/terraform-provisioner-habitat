@@ -28,10 +28,10 @@ go get -u github.com/hashicorp/terraform/config
 go get -u github.com/mitchellh/go-linereader
 go get -u github.com/chef-partners/terraform-provisioner-habitat/habitat
 
+echo "Installed project and dependencies"
 
 # build
 cd ${WORKROOT}
-ls -l $(GOROOT)/src/github.com
 
 go build -o terraform-provisioner-habitat_dev -v
 if [ $? -ne 0 ];
