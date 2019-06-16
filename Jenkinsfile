@@ -1,6 +1,5 @@
 def pod_label = "habprov-tf-${UUID.randomUUID().toString()}"
 pipeline {
-  def root = tool name: 'Go 1.9', type: 'go'
   agent {
     kubernetes {
       label pod_label
