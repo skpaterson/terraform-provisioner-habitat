@@ -37,6 +37,7 @@ spec:
         steps {
             container('habprov') {
                 sh 'go version'
+                sh 'terraform --version'
             }
         }
     }
