@@ -28,7 +28,7 @@ spec:
                 sh 'git --version'
                 sh 'chmod +x ./build.sh'
                 dir ('/home/jenkins/workspace/TF-Hab-Provisioner_master') { 
-                  sh('build.sh')
+                  sh('bash build.sh')
                 }  
               }
             }
