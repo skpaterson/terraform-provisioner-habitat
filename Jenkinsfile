@@ -26,7 +26,8 @@ spec:
                 sh 'ls -al'
                 sh 'echo PATH is: $PATH'
                 sh 'git --version'
-                sh 'build.sh'
+                sh 'chmod +x ./build.sh'
+                sh './build.sh'
                 }
             }
     }
