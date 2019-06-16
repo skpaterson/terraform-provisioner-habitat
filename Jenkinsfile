@@ -36,8 +36,10 @@ spec:
     stage('Test TF Habitat Provisioner') {
         steps {
             container('habprov') {
-                sh 'go version'
-                sh 'terraform --version'
+                sh 'echo PATH is: $PATH'
+                sh 'bash echo PATH is: $PATH'
+                sh 'bash go version'
+                sh 'bash terraform --version'
             }
         }
     }
