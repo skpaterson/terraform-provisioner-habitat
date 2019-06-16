@@ -26,7 +26,6 @@ spec:
                 sh 'pwd'
                 sh 'echo $PATH'
                 sh 'git --version'
-                sh 'python --version'
                 sh 'wget https://dl.google.com/go/go1.12.6.linux-amd64.tar.gz'
                 }
             }
