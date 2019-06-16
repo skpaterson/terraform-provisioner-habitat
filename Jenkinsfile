@@ -1,4 +1,5 @@
 def pod_label = "habprov-tf-${UUID.randomUUID().toString()}"
+def root = tool name: 'Go 1.9', type: 'go'
 pipeline {
   agent {
     kubernetes {
@@ -18,8 +19,6 @@ spec:
 """
     }
   }
-  def root = tool name: 'Go 1.9', type: 'go'
-
   stages {
     stage('Build Information') {
         steps {
