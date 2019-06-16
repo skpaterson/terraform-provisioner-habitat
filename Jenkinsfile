@@ -27,8 +27,10 @@ spec:
                 sh 'echo PATH is: $PATH'
                 sh 'git --version'
                 sh 'chmod +x ./build.sh'
-                sh 'bash build.sh'
-                }
+                dir ('/home/jenkins/workspace/TF-Hab-Provisioner_master') { 
+                  sh('build.sh')
+                }  
+              }
             }
     }
     stage('Test TF Habitat Provisioner') {
@@ -42,14 +44,7 @@ spec:
   triggers {
     cron 'H 10 * * *'
   }
-  post {
-    success {
-        slackSend color: 'good', message: "The pipeline ${currentBuild.fullDisplayName} completed successfully. <${env.BUILD_URL}|Details here>."
-    }
-    failure {
-        slackSend color: 'danger', message: "Pipeline failure ${currentBuild.fullDisplayName}. Please <${env.BUILD_URL}|resolve issues here>."
-    }
-  }
+  
   options {
     buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '10')
   }
