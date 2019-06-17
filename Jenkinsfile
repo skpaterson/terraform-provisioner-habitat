@@ -12,8 +12,6 @@ spec:
     image: gcr.io/spaterson-project/jenkins-habtfprov:latest
     command: ['cat']
     tty: true
-    securityContext:
-      privileged: true
     alwaysPullImage: true
 """
     }
