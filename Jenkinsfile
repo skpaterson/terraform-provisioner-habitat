@@ -9,7 +9,7 @@ kind: Pod
 spec:
   containers:
   - name: habprov
-    image: gcr.io/spaterson-project/jenkins-ruby-tf-aws-inspec:build
+    image: gcr.io/spaterson-project/jenkins-habtfprov:latest
     command: ['cat']
     tty: true
     securityContext:
