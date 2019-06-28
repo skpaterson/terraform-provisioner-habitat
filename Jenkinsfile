@@ -30,7 +30,6 @@ spec:
           }
         }
       }
-    }
   }
   triggers {
     cron 'H 10 * * *'
