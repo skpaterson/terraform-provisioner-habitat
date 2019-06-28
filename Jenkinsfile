@@ -9,7 +9,7 @@ kind: Pod
 spec:
   containers:
   - name: habprov
-    image: gcr.io/spaterson-project/jenkins-habtfprov:latest
+    image: gcr.io/spaterson-project/habprovtest1:latest
     command: ['cat']
     tty: true
     alwaysPullImage: true
@@ -23,23 +23,13 @@ spec:
                 sh 'pwd'
                 sh 'ls -al'
                 sh 'echo PATH = $PATH'
-                sh 'git --version'
-                sh 'chmod +x ./build.sh'
-                sh 'chmod +x ./test.sh'
-                dir ('/home/jenkins/workspace/TF-Hab-Provisioner_master') { 
-                  sh('bash build.sh')
-                }  
-              }
-            }
-    }
-    stage('Test TF Habitat Provisioner') {
-        steps {
-            container('habprov') {
-                dir ('/home/jenkins/workspace/TF-Hab-Provisioner_master') { 
-                  sh('bash test.sh')
-                }  
-            }
+                sh 'which go'
+                sh 'go version'
+//                sh 'chmod +x ./build.sh'
+//                sh 'chmod +x ./test.sh'
+          }
         }
+      }
     }
   }
   triggers {
